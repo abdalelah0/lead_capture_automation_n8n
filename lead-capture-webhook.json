@@ -1,0 +1,199 @@
+{
+  "name": "lead-capture-webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "test-lead",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3fa1bcb0-b344-49b6-8d33-92e262fd1ea3",
+      "name": "Webhook",
+      "webhookId": "2ea716c5-403f-4793-8425-c0553c3bc1e6"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fac800aa-2676-41f7-8fb9-ea1911e73109",
+              "name": "full_name",
+              "value": "=     {{ $json.body.name }}",
+              "type": "string"
+            },
+            {
+              "id": "ee8cf493-d964-499f-af45-8bc9ec662144",
+              "name": "=email",
+              "value": "=  {{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "2d9fd403-7935-49b5-8248-af523a397dfc",
+              "name": "company",
+              "value": "={{ $json.body.company }}",
+              "type": "string"
+            },
+            {
+              "id": "0b81b087-b488-40a1-9d52-679d1d9d4115",
+              "name": "status",
+              "value": "new_lead",
+              "type": "string"
+            },
+            {
+              "id": "8a9431d8-f2b3-4dae-bafc-f75ab2f99d80",
+              "name": "received_at",
+              "value": "={{ $now }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "307f9f79-61f9-4390-827e-e0f02654be62",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1LAHNhydWRj4WfgAxq-4diofHtCw6OFuHawsogy0wT8k",
+          "mode": "list",
+          "cachedResultName": "leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LAHNhydWRj4WfgAxq-4diofHtCw6OFuHawsogy0wT8k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "الورقة1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LAHNhydWRj4WfgAxq-4diofHtCw6OFuHawsogy0wT8k/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "full_name ",
+              "displayName": "full_name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email ",
+              "displayName": "email ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "company ",
+              "displayName": "company ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status ",
+              "displayName": "status ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "received_at",
+              "displayName": "received_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        0
+      ],
+      "id": "ace277b5-cd3a-4923-9e0a-c5e419b1143d",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "07C656Qe1pWeIZY2",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "50831673-7adf-4294-a34e-fcc083f4baa1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "07139d60e2a5990ce513452c11207cfe010b6ce65793084d455c6f5ba138480e"
+  },
+  "nodeGroups": [],
+  "id": "NAScXPw5gTNfMBTe",
+  "tags": []
+}
